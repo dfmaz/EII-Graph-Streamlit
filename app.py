@@ -132,7 +132,7 @@ def main():
             eii_net = Network(
                             height='550px',
                             width='100%',
-                            bgcolor='#333333',
+                            bgcolor='#292D35',
                             font_color='white'
                             )
 
