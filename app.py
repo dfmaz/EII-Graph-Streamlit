@@ -6,6 +6,8 @@ from pyvis.network import Network
 from htbuilder import HtmlElement, div, hr, a, p, img, styles
 from htbuilder.units import percent, px
 from operator import itemgetter
+import os
+import base64
 
 def footer_image(src_as_string, **style):
     return img(src=src_as_string, style=styles(**style))
@@ -82,6 +84,22 @@ def short_name(grafo):
     
     return grafo
 
+@st.cache(allow_output_mutation=True)
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+@st.cache(allow_output_mutation=True)
+def get_img_with_href(local_img_path, target_url):
+    img_format = os.path.splitext(local_img_path)[-1].replace('.', '')
+    bin_str = get_base64_of_bin_file(local_img_path)
+    html_code = f'''
+        <a href="{target_url}" target="_blank" rel="noopener noreferrer">
+            <img src="data:image/{img_format};base64,{bin_str}" />
+        </a>'''
+    return html_code
+
 def main():
     df_electrica = pd.read_csv('data/electrica.csv')
     df_electronica = pd.read_csv('data/electronica.csv')
@@ -95,6 +113,20 @@ def main():
 
     st.set_page_config(page_title='EIIGraph',
                     layout='wide')
+
+    c1, c2, c3, c4 = st.columns((1,1,1,14))
+    with c1:
+        logo_eii = get_img_with_href('img/LOGO_EII_color_mini.png', 'https://www.unex.es/conoce-la-uex/centros/eii')
+        st.markdown(logo_eii, unsafe_allow_html=True)
+    with c2:
+        logo_uex = get_img_with_href('img/LOGO_UEX.png', 'https://www.unex.es/')
+        st.markdown(logo_uex, unsafe_allow_html=True)
+    with c3:
+        logo_twitter = get_img_with_href('img/LOGO_TWITTER.png', 'https://twitter.com/eii_uex/')
+        st.markdown(logo_twitter, unsafe_allow_html=True)
+    with c4:
+        logo_facebook = get_img_with_href('img/LOGO_FACEBOOK.png', 'https://www.facebook.com/EIIUEX')
+        st.markdown(logo_facebook, unsafe_allow_html=True)
 
     st.markdown('## **EIIGraph**: An Interactive Graph Model Visualization of the Collaborating Companies Network of the Industrial Engineering School from the University of Extremadura, Spain')
     st.markdown('### _A collaborating company is understood as one having an **internship** agreement with the School. The nodes of the network are made up by the own companies and they will be connected to each other if they admit students of the same degree._')
