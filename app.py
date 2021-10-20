@@ -128,7 +128,7 @@ def main():
         logo_facebook = get_img_with_href('img/LOGO_FACEBOOK.png', 'https://www.facebook.com/EIIUEX')
         st.markdown(logo_facebook, unsafe_allow_html=True)
 
-    st.markdown('## **EIIGraph**: An Interactive Graph Model Visualization of the Collaborating Companies Network of the Industrial Engineering School from the University of Extremadura, Spain')
+    st.markdown('## **EIIGraph**: An Interactive Graph Model Visualization of the Collaborating Companies Network of the School of Industrial Engineering from the University of Extremadura, Spain')
     st.markdown('### _A collaborating company is understood as one having an **internship** agreement with the School. The nodes of the network are made up by the own companies and they will be connected to each other if they admit students of the same degree._')
 
     c1, c2 = st.columns((1,3))
