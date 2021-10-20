@@ -179,10 +179,10 @@ def main():
 
             eii_net.from_nx(G)
             eii_net.repulsion(
-                                node_distance=420,
+                                node_distance=1000000000000000000,
                                 central_gravity=0.33,
-                                spring_length=500,
-                                spring_strength=0.10,
+                                spring_length=1000,
+                                spring_strength=0.1,
                                 damping=0.95,
                             )
             try:
